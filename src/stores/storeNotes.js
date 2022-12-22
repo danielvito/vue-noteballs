@@ -29,5 +29,22 @@ export const useStoreNotes = defineStore("storeNotes", {
       });
       // console.log("delete note", noteId);
     },
+    updateNote(updateNote) {
+      let index = this.notes.findIndex((note) => note.id === updateNote.id);
+      if (index !== undefined) {
+        this.notes[index] = updateNote;
+      }
+
+      // console.log("update note", updateNote);
+    },
+  },
+  getters: {
+    getNoteById(state) {
+      return (noteId) => {
+        return this.notes.find((note) => {
+          return note.id === noteId;
+        });
+      };
+    },
   },
 });
