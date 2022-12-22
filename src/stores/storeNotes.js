@@ -46,5 +46,15 @@ export const useStoreNotes = defineStore("storeNotes", {
         });
       };
     },
+    totalNotesCount: (state) => {
+      return state.notes.length;
+    },
+    totalCharactersCount: (state) => {
+      const callback = (accumulator, currentValue, index) => {
+        return accumulator + currentValue.content.length;
+      };
+
+      return state.notes.reduce(callback, 0);
+    },
   },
 });
