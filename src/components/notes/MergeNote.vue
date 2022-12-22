@@ -1,5 +1,5 @@
 <template>
-  <div class="card has-background-link-dark p-4 mb-5">
+  <div class="card has-background-link-dark p-4 mb-4 mt-4">
     <label class="label has-text-white" v-if="label">
       {{ label }}
     </label>

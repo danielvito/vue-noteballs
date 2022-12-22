@@ -11,10 +11,7 @@
       </section>
       <footer class="modal-card-foot is-justify-content-flex-end">
         <button @click="closeModal" class="button">Cancel</button>
-        <button
-          @click="storeNotes.deleteNoteById(props.noteId)"
-          class="button is-danger"
-        >
+        <button @click="handleDeleteNote" class="button is-danger">
           Delete
         </button>
       </footer>
@@ -26,6 +23,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useStoreNotes } from "@/stores/storeNotes";
+import { runToast } from "@/helpers/toast";
 
 const storeNotes = useStoreNotes();
 
@@ -63,4 +61,9 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener("keyup", handleEscapeKey);
 });
+
+const handleDeleteNote = () => {
+  storeNotes.deleteNoteById(props.noteId);
+  runToast("Note deleted");
+};
 </script>

@@ -25,6 +25,7 @@ import { ref } from "vue";
 import Note from "@/components/notes/Note.vue";
 import MergeNote from "@/components/notes/MergeNote.vue";
 import { useStoreNotes } from "@/stores/storeNotes";
+import { runToast } from "@/helpers/toast";
 
 const storeNotes = useStoreNotes();
 const newNote = ref("");
@@ -35,7 +36,7 @@ const addNote = () => {
 
   newNote.value = "";
   mergeNoteRef.value.focusTextArea();
-  // console.log(note);
+  runToast("Note added");
 };
 </script>
 

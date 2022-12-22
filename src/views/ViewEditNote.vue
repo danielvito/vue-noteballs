@@ -27,6 +27,7 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import MergeNote from "@/components/notes/MergeNote.vue";
 import { useStoreNotes } from "@/stores/storeNotes";
+import { runToast } from "@/helpers/toast";
 
 const storeNotes = useStoreNotes();
 const route = useRoute();
@@ -43,6 +44,7 @@ const handleSaveNote = () => {
   };
 
   storeNotes.updateNote(payload);
+  runToast("Note saved");
   router.push("/");
 };
 </script>
