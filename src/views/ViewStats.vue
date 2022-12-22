@@ -18,11 +18,18 @@
         </tr>
       </tbody>
     </table>
+    <input
+      type="text"
+      class="input"
+      placeholder="Do you love noteballs?"
+      v-autofocus
+    />
   </div>
 </template>
 
 <script setup>
 import { useStoreNotes } from "@/stores/storeNotes";
+import { vAutofocus } from "@/directives/vAutofocus";
 
 const storeNotes = useStoreNotes();
 </script>
