@@ -1,6 +1,6 @@
 // stores/counter.js
 import { defineStore } from "pinia";
-import axios from "axios";
+import notesApi from "@/api/notesApi";
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
@@ -12,7 +12,7 @@ export const useStoreNotes = defineStore("storeNotes", {
     async addNote(newNote) {
       newNote.id = new Date().getTime().toString();
       try {
-        await axios.post("http://localhost:3000/notes", newNote);
+        await notesApi.post("/", newNote);
         this.notes.unshift(newNote);
       } catch (error) {
         console.log("error addNote", error);
@@ -22,7 +22,7 @@ export const useStoreNotes = defineStore("storeNotes", {
       try {
         let index = this.notes.findIndex((note) => note.id === noteId);
         if (index !== undefined) {
-          await axios.delete(`http://localhost:3000/notes/${noteId}`);
+          await notesApi.delete(noteId);
           this.notes = this.notes.filter((note) => {
             return note.id !== noteId;
           });
@@ -35,10 +35,7 @@ export const useStoreNotes = defineStore("storeNotes", {
       try {
         let index = this.notes.findIndex((note) => note.id === noteToUpdate.id);
         if (index !== undefined) {
-          await axios.put(
-            `http://localhost:3000/notes/${noteToUpdate.id}`,
-            noteToUpdate
-          );
+          await notesApi.put(noteToUpdate.id, noteToUpdate);
           this.notes[index] = noteToUpdate;
         }
       } catch (error) {
@@ -47,7 +44,7 @@ export const useStoreNotes = defineStore("storeNotes", {
     },
     async fetchNotes() {
       try {
-        const data = await axios.get("http://localhost:3000/notes");
+        const data = await notesApi.get();
         this.notes = data.data;
       } catch (error) {
         console.log("error fetchNotes", error);
