@@ -19,6 +19,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
     "vite": "^4.0.0"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/danielvito/vue-noteballs.git",
+  "author": "Daniel <daniel_vito@yahoo.com.br>",
+  "license": "MIT"
 }

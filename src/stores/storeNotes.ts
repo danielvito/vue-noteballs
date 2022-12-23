@@ -1,6 +1,7 @@
 // stores/counter.js
 import { defineStore } from "pinia";
 import notesApi from "@/api/notesApi";
+import { Note } from "@/interfaces/note";
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
@@ -44,7 +45,7 @@ export const useStoreNotes = defineStore("storeNotes", {
     },
     async fetchNotes() {
       try {
-        const data = await notesApi.get();
+        const data = await notesApi.get<Note[]>("");
         this.notes = data.data;
       } catch (error) {
         console.log("error fetchNotes", error);
