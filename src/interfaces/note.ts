@@ -1,4 +1,4 @@
 export interface Note {
-  id: String;
-  name: String;
+  id: string;
+  content: string;
 }

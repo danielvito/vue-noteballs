@@ -6,11 +6,11 @@ import { Note } from "@/interfaces/note";
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
     return {
-      notes: [],
+      notes: [] as Note[],
     };
   },
   actions: {
-    async addNote(newNote) {
+    async addNote(newNote: Note) {
       newNote.id = new Date().getTime().toString();
       try {
         await notesApi.post("/", newNote);
@@ -19,12 +19,12 @@ export const useStoreNotes = defineStore("storeNotes", {
         console.log("error addNote", error);
       }
     },
-    async deleteNoteById(noteId) {
+    async deleteNoteById(noteId: string) {
       try {
-        let index = this.notes.findIndex((note) => note.id === noteId);
+        let index = this.notes.findIndex((note: Note) => note.id === noteId);
         if (index !== undefined) {
           await notesApi.delete(noteId);
-          this.notes = this.notes.filter((note) => {
+          this.notes = this.notes.filter((note: Note) => {
             return note.id !== noteId;
           });
         }
@@ -32,9 +32,11 @@ export const useStoreNotes = defineStore("storeNotes", {
         console.log("error deleteNoteById", error);
       }
     },
-    async updateNote(noteToUpdate) {
+    async updateNote(noteToUpdate: Note) {
       try {
-        let index = this.notes.findIndex((note) => note.id === noteToUpdate.id);
+        let index = this.notes.findIndex(
+          (note: Note) => note.id === noteToUpdate.id
+        );
         if (index !== undefined) {
           await notesApi.put(noteToUpdate.id, noteToUpdate);
           this.notes[index] = noteToUpdate;
@@ -54,8 +56,8 @@ export const useStoreNotes = defineStore("storeNotes", {
   },
   getters: {
     getNoteById(state) {
-      return (noteId) => {
-        return this.notes.find((note) => {
+      return (noteId: string) => {
+        return this.notes.find((note: Note) => {
           return note.id === noteId;
         });
       };
@@ -64,7 +66,11 @@ export const useStoreNotes = defineStore("storeNotes", {
       return state.notes.length;
     },
     totalCharactersCount: (state) => {
-      const callback = (accumulator, currentValue, index) => {
+      const callback = (
+        accumulator: number,
+        currentValue: Note,
+        index: number
+      ) => {
         return accumulator + currentValue.content.length;
       };
 
