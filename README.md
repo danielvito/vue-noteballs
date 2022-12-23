@@ -10,20 +10,31 @@ This template should help get you started developing with Vue 3 in Vite.
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Project Setup (you can use npm or yarn)
 
 ```sh
 npm install
+# OR
+yarn install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
+# open the json server in a different terminal
+json-server --watch data/db.json
+```
+
+```sh
 npm run dev
+# OR
+yarn dev
 ```
 
 ### Compile and Minify for Production
 
 ```sh
 npm run build
+#OR
+yarn build
 ```
