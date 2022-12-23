@@ -1,0 +1,16 @@
+{
+  "notes": [
+    {
+      "id": "id1",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate doloribus sunt non suscipit eos debitis sequi tempore facilis, quas aspernatur asperiores, excepturi sit? Suscipit excepturi nobis dignissimos assumenda, officia animi!"
+    },
+    {
+      "id": "id2",
+      "content": "Short text"
+    },
+    {
+      "content": "Some more text",
+      "id": "1671754082358"
+    }
+  ]
+}

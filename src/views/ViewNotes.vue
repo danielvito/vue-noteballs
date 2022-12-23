@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Note from "@/components/notes/Note.vue";
 import MergeNote from "@/components/notes/MergeNote.vue";
 import { useStoreNotes } from "@/stores/storeNotes";
@@ -38,6 +38,8 @@ const addNote = () => {
   mergeNoteRef.value.focusTextArea();
   runToast("Note added");
 };
-</script>
 
-<style></style>
+onMounted(() => {
+  storeNotes.fetchNotes();
+});
+</script>

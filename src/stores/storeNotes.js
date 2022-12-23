@@ -1,41 +1,57 @@
 // stores/counter.js
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
     return {
-      notes: [
-        {
-          id: "id1",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate doloribus sunt non suscipit eos debitis sequi tempore facilis, quas aspernatur asperiores, excepturi sit? Suscipit excepturi nobis dignissimos assumenda, officia animi!",
-        },
-        {
-          id: "id2",
-          content: "Short text",
-        },
-      ],
+      notes: [],
     };
   },
   actions: {
-    addNote(newNote) {
+    async addNote(newNote) {
       newNote.id = new Date().getTime().toString();
-      this.notes.unshift(newNote);
-      // console.log("add note", newNote);
-    },
-    deleteNoteById(noteId) {
-      this.notes = this.notes.filter((note) => {
-        return note.id !== noteId;
-      });
-      // console.log("delete note", noteId);
-    },
-    updateNote(updateNote) {
-      let index = this.notes.findIndex((note) => note.id === updateNote.id);
-      if (index !== undefined) {
-        this.notes[index] = updateNote;
+      try {
+        await axios.post("http://localhost:3000/notes", newNote);
+        this.notes.unshift(newNote);
+      } catch (error) {
+        console.log("error addNote", error);
       }
-
-      // console.log("update note", updateNote);
+    },
+    async deleteNoteById(noteId) {
+      try {
+        let index = this.notes.findIndex((note) => note.id === noteId);
+        if (index !== undefined) {
+          await axios.delete(`http://localhost:3000/notes/${noteId}`);
+          this.notes = this.notes.filter((note) => {
+            return note.id !== noteId;
+          });
+        }
+      } catch (error) {
+        console.log("error deleteNoteById", error);
+      }
+    },
+    async updateNote(noteToUpdate) {
+      try {
+        let index = this.notes.findIndex((note) => note.id === noteToUpdate.id);
+        if (index !== undefined) {
+          await axios.put(
+            `http://localhost:3000/notes/${noteToUpdate.id}`,
+            noteToUpdate
+          );
+          this.notes[index] = noteToUpdate;
+        }
+      } catch (error) {
+        console.log("error updateNote", error);
+      }
+    },
+    async fetchNotes() {
+      try {
+        const data = await axios.get("http://localhost:3000/notes");
+        this.notes = data.data;
+      } catch (error) {
+        console.log("error fetchNotes", error);
+      }
     },
   },
   getters: {
